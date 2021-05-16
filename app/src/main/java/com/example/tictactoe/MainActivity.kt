@@ -4,19 +4,20 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import androidx.core.view.isVisible
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
-    var PLAYER = true// This will tell us the value of current player
+    private var PLAYER = true// This will tell us the value of current player
 
     // If true then player 1, else player 2
-    var TURN_COUNT = 0// If turn count becomes 9, then match is draw.
+    private var TURN_COUNT = 0// If turn count becomes 9, then match is draw.
     // If before that, then one player is moving forth(winning)
 
     val boardStatus = Array(3) { IntArray(3) }// maintain this array to avoid traversing board array
 
-    // again and again
+    // 2D array to store buttons
     lateinit var board: Array<Array<Button>>
 
     var playerXName: String = "X"
@@ -25,9 +26,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        playerXName = etOne.text.toString()
-        playerOName = etTwo.text.toString()
 
         board = arrayOf(
             arrayOf(btnMove1, btnMove2, btnMove3),
@@ -41,13 +39,22 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             }
         }
 
+        btnStart.setOnClickListener {
+            btnStart.isVisible = false
+
+            playerXName = etOne.text.toString()
+            playerOName = etTwo.text.toString()
+            updateDisplay("Player X Turn")
+        }
+
         initializeBoardStatus()
 
         btnReset.setOnClickListener {
             PLAYER = true
             TURN_COUNT = 0
             initializeBoardStatus()
-            
+            btnStart.isVisible = true
+            updateDisplay("New Game")
         }
 
     }
@@ -66,7 +73,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 button.text = ""
             }
         }
-        updateDisplay("Player X Turn")
+        updateDisplay("New Game")
     }
 
     override fun onClick(view: View?) {
@@ -120,10 +127,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         for (i in 0..2) {
             if (boardStatus[i][0] == boardStatus[i][1] && boardStatus[i][0] == boardStatus[i][2]) {
                 if (boardStatus[i][0] == 1) {
-                    updateDisplay("Player X Won!!")
+                    updateDisplay("$playerXName Won!!")
                     break
                 } else if (boardStatus[i][0] == 0) {
-                    updateDisplay("Player 0 Won!!")
+                    updateDisplay("$playerOName Won!!")
                     break
                 }
             }
@@ -133,10 +140,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         for (i in 0..2) {
             if (boardStatus[0][i] == boardStatus[1][i] && boardStatus[0][i] == boardStatus[2][i]) {
                 if (boardStatus[0][i] == 1) {
-                    updateDisplay("Player X Won!!")
+                    updateDisplay("$playerXName Won!!")
                     break
                 } else if (boardStatus[0][i] == 0) {
-                    updateDisplay("Player 0 Won!!")
+                    updateDisplay("$playerOName Won!!")
                     break
                 }
             }
@@ -145,18 +152,18 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         // Check diagonal 1
         if (boardStatus[0][0] == boardStatus[1][1] && boardStatus[0][0] == boardStatus[2][2]) {
             if (boardStatus[0][0] == 1) {
-                updateDisplay("Player X Won!!")
+                updateDisplay("$playerXName Won!!")
             } else if(boardStatus[0][0] == 0){
-                updateDisplay("Player O Won!!")
+                updateDisplay("${playerOName} Won!!")
             }
         }
 
         // Check diagonal 2
         if (boardStatus[0][2] == boardStatus[1][1] && boardStatus[0][2] == boardStatus[2][0]) {
             if (boardStatus[0][2] == 1) {
-                updateDisplay("Player X Won!!")
+                updateDisplay("$playerXName Won!!")
             } else if(boardStatus[0][2] == 0){
-                updateDisplay("Player O Won!!")
+                updateDisplay("$playerOName Won!!")
             }
         }
     }
