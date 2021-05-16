@@ -10,18 +10,18 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private var PLAYER = true// This will tell us the value of current player
-
     // If true then player 1, else player 2
+
     private var TURN_COUNT = 0// If turn count becomes 9, then match is draw.
     // If before that, then one player is moving forth(winning)
 
-    val boardStatus = Array(3) { IntArray(3) }// maintain this array to avoid traversing board array
+    private val boardStatus = Array(3) { IntArray(3) }// maintain this array to avoid traversing board array
 
     // 2D array to store buttons
-    lateinit var board: Array<Array<Button>>
+    private lateinit var board: Array<Array<Button>>
 
-    var playerXName: String = "X"
-    var playerOName: String = "O"
+    private var playerXName: String = "X"
+    private var playerOName: String = "O"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,8 +42,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         btnStart.setOnClickListener {
             btnStart.isVisible = false
 
-            playerXName = etOne.text.toString()
-            playerOName = etTwo.text.toString()
+            playerXName = if (etOne.text.toString() != "") (etOne.text.toString()) else playerXName
+            playerOName = if (etTwo.text.toString() != "") (etTwo.text.toString()) else playerOName
             updateDisplay("Player X Turn")
         }
 
@@ -153,7 +153,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         if (boardStatus[0][0] == boardStatus[1][1] && boardStatus[0][0] == boardStatus[2][2]) {
             if (boardStatus[0][0] == 1) {
                 updateDisplay("$playerXName Won!!")
-            } else if(boardStatus[0][0] == 0){
+            } else if (boardStatus[0][0] == 0) {
                 updateDisplay("${playerOName} Won!!")
             }
         }
@@ -162,7 +162,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         if (boardStatus[0][2] == boardStatus[1][1] && boardStatus[0][2] == boardStatus[2][0]) {
             if (boardStatus[0][2] == 1) {
                 updateDisplay("$playerXName Won!!")
-            } else if(boardStatus[0][2] == 0){
+            } else if (boardStatus[0][2] == 0) {
                 updateDisplay("$playerOName Won!!")
             }
         }

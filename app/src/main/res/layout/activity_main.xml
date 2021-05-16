@@ -20,26 +20,26 @@
             android:orientation="vertical">
 
             <TextView
-                android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/player_one_x"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textStyle="bold" />
 
             <EditText
-                android:requiresFadingEdge="horizontal"
-                android:inputType="textPersonName"
                 android:id="@+id/etOne"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:requiresFadingEdge="horizontal" />
         </LinearLayout>
 
         <Button
-            android:background="@color/teal_700"
             android:id="@+id/btnStart"
-            android:text="Start"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:background="@color/teal_700"
+            android:text="Start" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -49,17 +49,17 @@
             android:orientation="vertical">
 
             <TextView
-                android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Player Two: Y"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textStyle="bold" />
 
             <EditText
-                android:inputType="textPersonName"
                 android:id="@+id/etTwo"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName" />
         </LinearLayout>
     </LinearLayout>
 
