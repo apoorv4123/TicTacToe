@@ -47,6 +47,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             PLAYER = true
             TURN_COUNT = 0
             initializeBoardStatus()
+            
         }
 
     }
